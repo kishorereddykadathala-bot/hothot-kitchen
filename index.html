@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hothot — Order</title>
+<title>HOTPOT — Order</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --charcoal:#1C1A17;
-    --charcoal-2:#252220;
-    --card:#2A2622;
-    --chalk:#F5EFE6;
-    --chalk-dim:#B8AFA2;
+    --charcoal:#2E1420;
+    --charcoal-2:#391A28;
+    --card:#422030;
+    --chalk:#FAF0F4;
+    --chalk-dim:#D9A9BF;
     --ember:#E8562F;
     --ember-dim:#7a3320;
     --mustard:#C9A227;
-    --line:#403A33;
+    --line:#5C2B44;
     --green:#5B8C5A;
   }
   *{box-sizing:border-box;}
@@ -210,9 +210,9 @@
   .add-btn:hover{background:var(--ember);border-color:var(--ember);color:var(--charcoal);}
   .add-btn.added{background:var(--green);border-color:var(--green);color:var(--charcoal);}
 
-  /* ---------- CART / cart ---------- */
-  .CART-wrap{max-width:460px;margin:0 auto;}
-  .CART{
+  /* ---------- Ticket / cart ---------- */
+  .ticket-wrap{max-width:460px;margin:0 auto;}
+  .ticket{
     background:var(--chalk);
     color:var(--charcoal);
     border-radius:2px;
@@ -221,37 +221,37 @@
     font-family:'JetBrains Mono',monospace;
     box-shadow:0 20px 50px -20px rgba(0,0,0,0.6);
   }
-  .CART::before, .CART::after{
+  .ticket::before, .ticket::after{
     content:"";
     position:absolute;left:0;right:0;height:14px;
     background:
       radial-gradient(circle at 10px 50%, var(--charcoal) 6px, transparent 7px) repeat-x;
     background-size:20px 14px;
   }
-  .CART::before{top:-7px;}
-  .CART::after{bottom:-7px;transform:rotate(180deg);}
-  .CART-head{text-align:center;margin-bottom:18px;}
-  .CART-head .t-brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:1px;}
-  .CART-head .t-sub{font-size:10px;letter-spacing:2px;color:#6b6459;margin-top:4px;}
-  .CART-divider{border:none;border-top:1px dashed #b9b0a0;margin:16px 0;}
-  .CART-line{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;gap:10px;}
-  .CART-line .name{flex:1;}
+  .ticket::before{top:-7px;}
+  .ticket::after{bottom:-7px;transform:rotate(180deg);}
+  .ticket-head{text-align:center;margin-bottom:18px;}
+  .ticket-head .t-brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:1px;}
+  .ticket-head .t-sub{font-size:10px;letter-spacing:2px;color:#6b6459;margin-top:4px;}
+  .ticket-divider{border:none;border-top:1px dashed #b9b0a0;margin:16px 0;}
+  .ticket-line{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;gap:10px;}
+  .ticket-line .name{flex:1;}
   .qty-ctrl{display:flex;align-items:center;gap:8px;}
   .qty-ctrl button{
     width:20px;height:20px;border:1px solid #6b6459;background:none;border-radius:3px;
     font-family:'JetBrains Mono',monospace;cursor:pointer;font-size:12px;line-height:1;color:var(--charcoal);
   }
-  .CART-empty{text-align:center;color:#6b6459;font-size:13px;padding:30px 0;}
-  .CART-total{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-top:14px;}
-  .CART-sub{display:flex;justify-content:space-between;font-size:12.5px;color:#6b6459;margin-bottom:6px;}
-  .CART-cta{
+  .ticket-empty{text-align:center;color:#6b6459;font-size:13px;padding:30px 0;}
+  .ticket-total{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-top:14px;}
+  .ticket-sub{display:flex;justify-content:space-between;font-size:12.5px;color:#6b6459;margin-bottom:6px;}
+  .ticket-cta{
     width:100%;margin-top:20px;padding:13px;border:none;border-radius:3px;
     background:var(--ember);color:var(--chalk);font-family:'JetBrains Mono',monospace;
     font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;
     transition:background .15s;
   }
-  .CART-cta:hover{background:#c9451f;}
-  .CART-cta:disabled{background:#c9c1b3;cursor:not-allowed;}
+  .ticket-cta:hover{background:#c9451f;}
+  .ticket-cta:disabled{background:#c9c1b3;cursor:not-allowed;}
 
   /* ---------- Checkout ---------- */
   .checkout-wrap{max-width:520px;margin:0 auto;}
@@ -364,13 +364,13 @@
 
 <header>
   <div class="brand">
-    <h1>Hothot</h1>
+    <h1>HOTPOT</h1>
     <span>Wood-fired kitchen</span>
   </div>
   <nav>
     <button class="navbtn active" id="nav-menu" onclick="goTo('menu')">Menu</button>
     <button class="navbtn cart-fab" id="nav-cart" onclick="goTo('cart')">
-      CART <span class="cart-count hidden" id="cart-count">0</span>
+      Ticket <span class="cart-count hidden" id="cart-count">0</span>
     </button>
   </nav>
 </header>
@@ -382,7 +382,7 @@
     <div class="menu-hero">
       <div class="eyebrow">Fired daily, 5pm — late</div>
       <h2>What's coming out<br>of the oven tonight</h2>
-      <p>Everything's cooked over oak and charcoal. Add what you want to your CART, then send it to the kitchen.</p>
+      <p>Everything's cooked over oak and charcoal. Add what you want to your ticket, then send it to the kitchen.</p>
       <div class="hero-banner" id="hero-banner">
         <img id="hero-img" alt="Flames in the wood-fired oven">
         <div class="hero-caption">Oak &amp; charcoal, since 6pm</div>
@@ -394,19 +394,19 @@
 
   <!-- CART VIEW -->
   <section id="view-cart" class="hidden">
-    <div class="CART-wrap">
-      <div class="CART">
-        <div class="CART-head">
-          <div class="t-brand">HOTHOT</div>
-          <div class="t-sub">ORDER CART · #<span id="CART-num">--</span></div>
+    <div class="ticket-wrap">
+      <div class="ticket">
+        <div class="ticket-head">
+          <div class="t-brand">HOTPOT</div>
+          <div class="t-sub">ORDER TICKET · #<span id="ticket-num">--</span></div>
         </div>
-        <div id="CART-items"></div>
-        <div id="CART-empty" class="CART-empty hidden">Your CART's empty. Go pick something from the fire.</div>
-        <hr class="CART-divider" id="CART-divider-bottom">
-        <div class="CART-sub"><span>Subtotal</span><span id="CART-subtotal">₹0</span></div>
-        <div class="CART-sub"><span>Delivery</span><span id="CART-delivery">₹0</span></div>
-        <div class="CART-total"><span>Total</span><span id="CART-total">₹0</span></div>
-        <button class="CART-cta" id="CART-checkout-btn" onclick="goTo('checkout')" disabled>Send to kitchen →</button>
+        <div id="ticket-items"></div>
+        <div id="ticket-empty" class="ticket-empty hidden">Your ticket's empty. Go pick something from the fire.</div>
+        <hr class="ticket-divider" id="ticket-divider-bottom">
+        <div class="ticket-sub"><span>Subtotal</span><span id="ticket-subtotal">₹0</span></div>
+        <div class="ticket-sub"><span>Delivery</span><span id="ticket-delivery">₹0</span></div>
+        <div class="ticket-total"><span>Total</span><span id="ticket-total">₹0</span></div>
+        <button class="ticket-cta" id="ticket-checkout-btn" onclick="goTo('checkout')" disabled>Send to kitchen →</button>
       </div>
     </div>
   </section>
@@ -414,7 +414,7 @@
   <!-- CHECKOUT VIEW -->
   <section id="view-checkout" class="hidden">
     <div class="checkout-wrap">
-      <button class="back-link" onclick="goTo('cart')">← back to CART</button>
+      <button class="back-link" onclick="goTo('cart')">← back to ticket</button>
       <h2>Where's this going?</h2>
       <div class="sub">We'll text you when it's on its way.</div>
 
@@ -462,7 +462,7 @@
   <section id="view-track" class="hidden">
     <div class="track-wrap">
       <div class="order-id">ORDER #<span id="track-num">--</span></div>
-      <h2 id="track-headline">CART's on the rail</h2>
+      <h2 id="track-headline">Ticket's on the rail</h2>
       <div class="eta" id="track-eta">Estimated arrival: --</div>
 
       <div class="stamps" id="stamps">
@@ -477,7 +477,7 @@
       <div class="track-card">
         <h4>Delivering to</h4>
         <div class="addr" id="track-addr"></div>
-        <div class="track-status-msg" id="track-msg">Kitchen just got your CART.</div>
+        <div class="track-status-msg" id="track-msg">Kitchen just got your ticket.</div>
       </div>
 
       <button class="new-order-btn" onclick="resetAndStartOver()">Start a new order</button>
@@ -608,7 +608,7 @@ function renderMenu(){
               <div class="dish-desc">${dish.desc}</div>
               ${dish.tag ? `<div class="dish-tag ${dish.spicy?'spicy':''}">${dish.tag}</div>` : ''}
               <div class="add-row">
-                <button class="add-btn" id="btn-${dish.id}" onclick="addToCart('${dish.id}', this)">Add to CART</button>
+                <button class="add-btn" id="btn-${dish.id}" onclick="addToCart('${dish.id}', this)">Add to ticket</button>
               </div>
             </div>
           </div>
@@ -628,7 +628,7 @@ function renderMenu(){
 
 function loadHeroImage(){
   const heroImg = document.getElementById('hero-img');
-  loadDishImage(heroImg, "wood fired oven flames restaurant kitchen", hashSeed("hero-hothot"), "biryani", "main.jpg");
+  loadDishImage(heroImg, "wood fired oven flames restaurant kitchen", hashSeed("hero-HOTPOT"), "biryani", "mainjpg.jpg");
 }
 
 function findDish(id){
@@ -648,7 +648,7 @@ function addToCart(id, btn){
     btn.classList.add('added');
     setTimeout(()=>{ btn.textContent = original; btn.classList.remove('added'); }, 900);
   }
-  renderCART();
+  renderTicket();
 }
 
 function changeQty(id, delta){
@@ -656,7 +656,7 @@ function changeQty(id, delta){
   cart[id] += delta;
   if (cart[id] <= 0) delete cart[id];
   updateCartCount();
-  renderCART();
+  renderTicket();
 }
 
 function cartCount(){
@@ -677,23 +677,23 @@ function cartSubtotal(){
   }, 0);
 }
 
-/* ---------------- CART (cart view) rendering ---------------- */
-function renderCART(){
-  const itemsWrap = document.getElementById('CART-items');
-  const emptyMsg = document.getElementById('CART-empty');
+/* ---------------- Ticket (cart view) rendering ---------------- */
+function renderTicket(){
+  const itemsWrap = document.getElementById('ticket-items');
+  const emptyMsg = document.getElementById('ticket-empty');
   const entries = Object.entries(cart);
 
   if (entries.length === 0){
     itemsWrap.innerHTML = '';
     emptyMsg.classList.remove('hidden');
-    document.getElementById('CART-checkout-btn').disabled = true;
+    document.getElementById('ticket-checkout-btn').disabled = true;
   } else {
     emptyMsg.classList.add('hidden');
-    document.getElementById('CART-checkout-btn').disabled = false;
+    document.getElementById('ticket-checkout-btn').disabled = false;
     itemsWrap.innerHTML = entries.map(([id, qty]) => {
       const dish = findDish(id);
       return `
-        <div class="CART-line">
+        <div class="ticket-line">
           <div class="name">${dish.name}</div>
           <div class="qty-ctrl">
             <button onclick="changeQty('${id}', -1)">−</button>
@@ -708,13 +708,13 @@ function renderCART(){
 
   const subtotal = cartSubtotal();
   const delivery = entries.length ? DELIVERY_FEE : 0;
-  document.getElementById('CART-subtotal').textContent = `₹${subtotal}`;
-  document.getElementById('CART-delivery').textContent = `₹${delivery}`;
-  document.getElementById('CART-total').textContent = `₹${subtotal + delivery}`;
-  document.getElementById('CART-num').textContent = orderId || pendingCARTNum();
+  document.getElementById('ticket-subtotal').textContent = `₹${subtotal}`;
+  document.getElementById('ticket-delivery').textContent = `₹${delivery}`;
+  document.getElementById('ticket-total').textContent = `₹${subtotal + delivery}`;
+  document.getElementById('ticket-num').textContent = orderId || pendingTicketNum();
 }
 
-function pendingCARTNum(){
+function pendingTicketNum(){
   if (!window._pendingNum) window._pendingNum = String(1000 + Math.floor(Math.random()*9000));
   return window._pendingNum;
 }
@@ -746,11 +746,11 @@ function placeOrder(){
     return;
   }
   if (cartCount() === 0){
-    alert("Your CART's empty — add something from the menu first.");
+    alert("Your ticket's empty — add something from the menu first.");
     return;
   }
 
-  orderId = pendingCARTNum();
+  orderId = pendingTicketNum();
   window._pendingNum = null;
 
   const addr2 = document.getElementById('f-addr2').value.trim();
@@ -769,7 +769,7 @@ function placeOrder(){
 
 /* ---------------- Tracking simulation ---------------- */
 const STAGES = [
-  { label: "Kitchen just got your CART.", headline: "CART's on the rail", eta: "35–45 min" },
+  { label: "Kitchen just got your ticket.", headline: "Ticket's on the rail", eta: "35–45 min" },
   { label: "It's over the fire right now.", headline: "Firing it up", eta: "28–35 min" },
   { label: "Plated, boxed, and ready to roll.", headline: "Boxed and waiting on the rider", eta: "18–22 min" },
   { label: "Your rider's on the road.", headline: "Out for delivery", eta: "8–12 min" },
@@ -807,7 +807,7 @@ function resetAndStartOver(){
   orderId = null;
   clearInterval(trackTimer);
   updateCartCount();
-  renderCART();
+  renderTicket();
   goTo('menu');
 }
 
@@ -818,7 +818,7 @@ function goTo(view){
   });
   document.getElementById('nav-menu').classList.toggle('active', view === 'menu');
   document.getElementById('nav-cart').classList.toggle('active', view === 'cart');
-  if (view === 'cart') renderCART();
+  if (view === 'cart') renderTicket();
   if (view === 'checkout') renderCheckoutSummary();
   window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -827,7 +827,7 @@ function goTo(view){
 renderMenu();
 loadHeroImage();
 updateCartCount();
-renderCART();
+renderTicket();
 </script>
 
 </body>
