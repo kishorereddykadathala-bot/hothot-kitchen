@@ -488,23 +488,23 @@
 /* ---------------- Menu data ---------------- */
 const MENU = [
   { cat: "From the wood oven", items: [
-    { id:"m1", name:"Char-Bark Margherita", desc:"San Marzano, fior di latte, torn basil, oak smoke.", price:420, tag:"Veg", img:"margherita pizza", backupCat:"pizza", icon:"🍕" },
-    { id:"m2", name:"Ember Ash Pizza", desc:"Charred leeks, taleggio, black garlic ash.", price:480, tag:"Veg", img:"gourmet pizza", backupCat:"pizza", icon:"🍕" },
-    { id:"m3", name:"Nduja & Honey", desc:"Spicy calabrian sausage, whipped ricotta, hot honey.", price:540, tag:"Spicy", spicy:true, img:"spicy pizza", backupCat:"pizza", icon:"🍕" },
+    { id:"m1", name:"Char-Bark Margherita", desc:"San Marzano, fior di latte, torn basil, oak smoke.", price:420, tag:"Veg", local:"cbm.jpeg", img:"margherita pizza", backupCat:"pizza", icon:"🍕" },
+    { id:"m2", name:"Ember Ash Pizza", desc:"Charred leeks, taleggio, black garlic ash.", price:480, tag:"Veg", local:"eap.jpeg", img:"gourmet pizza", backupCat:"pizza", icon:"🍕" },
+    { id:"m3", name:"Nduja & Honey", desc:"Spicy calabrian sausage, whipped ricotta, hot honey.", price:540, tag:"Spicy", spicy:true, local:"nh.jpeg", img:"spicy pizza", backupCat:"pizza", icon:"🍕" },
   ]},
   { cat: "Off the grill", items: [
-    { id:"g1", name:"Charcoal Chicken Thigh", desc:"Brined 24h, chili-lime glaze, pickled shallot.", price:460, tag:"Spicy", spicy:true, img:"grilled chicken", backupCat:"butter-chicken", icon:"🍗" },
-    { id:"g2", name:"Smoked Paneer Tikka", desc:"Char-grilled over oak, mint-coriander chutney.", price:380, tag:"Veg", img:"paneer tikka", backupCat:"dosa", icon:"🧆" },
-    { id:"g3", name:"Whole Charred Fish", desc:"Catch of the day, curry leaf oil, lime.", price:620, tag:"", img:"grilled fish", backupCat:"rice", icon:"🐟" },
+    { id:"g1", name:"Charcoal Chicken Thigh", desc:"Brined 24h, chili-lime glaze, pickled shallot.", price:460, tag:"Spicy", spicy:true, local:"cct.jpeg", img:"grilled chicken", backupCat:"butter-chicken", icon:"🍗" },
+    { id:"g2", name:"Smoked Paneer Tikka", desc:"Char-grilled over oak, mint-coriander chutney.", price:380, tag:"Veg", local:"pt.jpeg", img:"paneer tikka", backupCat:"dosa", icon:"🧆" },
+    { id:"g3", name:"Whole Charred Fish", desc:"Catch of the day, curry leaf oil, lime.", price:620, tag:"", local:"fish.jpeg", img:"grilled fish", backupCat:"rice", icon:"🐟" },
   ]},
   { cat: "Sides & starters", items: [
-    { id:"s1", name:"Live-Fire Flatbread", desc:"Blistered naan, garlic-ghee brush.", price:140, tag:"Veg", img:"naan bread", backupCat:"dosa", icon:"🫓" },
-    { id:"s2", name:"Roasted Bone Marrow", desc:"Toast points, parsley-caper gremolata.", price:390, tag:"", img:"roasted dish", backupCat:"biryani", icon:"🍖" },
-    { id:"s3", name:"Ash-Roasted Beets", desc:"Whipped goat cheese, hazelnut, sherry.", price:260, tag:"Veg", img:"beet salad", backupCat:"rice", icon:"🥗" },
+    { id:"s1", name:"Live-Fire Flatbread", desc:"Blistered naan, garlic-ghee brush.", price:140, tag:"Veg", local:"lffb.jpeg", img:"naan bread", backupCat:"dosa", icon:"🫓" },
+    { id:"s2", name:"Roasted Bone Marrow", desc:"Toast points, parsley-caper gremolata.", price:390, tag:"", local:"rb.jpeg", img:"roasted dish", backupCat:"biryani", icon:"🍖" },
+    { id:"s3", name:"Ash-Roasted Beets", desc:"Whipped goat cheese, hazelnut, sherry.", price:260, tag:"Veg", local:"arb.jpeg", img:"beet salad", backupCat:"rice", icon:"🥗" },
   ]},
   { cat: "To finish", items: [
-    { id:"d1", name:"Smoked Chocolate Tart", desc:"Torched meringue, sea salt.", price:280, tag:"Veg", img:"chocolate tart", backupCat:"dessert", icon:"🍫" },
-    { id:"d2", name:"Grilled Pineapple", desc:"Charred rum caramel, coconut sorbet.", price:240, tag:"Veg", img:"grilled pineapple dessert", backupCat:"dessert", icon:"🍍" },
+    { id:"d1", name:"Smoked Chocolate Tart", desc:"Torched meringue, sea salt.", price:280, tag:"Veg", local:"scd.jpeg", img:"chocolate tart", backupCat:"dessert", icon:"🍫" },
+    { id:"d2", name:"Grilled Pineapple", desc:"Charred rum caramel, coconut sorbet.", price:240, tag:"Veg", local:"gp.jpeg", img:"grilled pineapple dessert", backupCat:"dessert", icon:"🍍" },
   ]},
 ];
 
@@ -525,7 +525,7 @@ function hashSeed(str){
   return h % 5000;
 }
 
-function loadDishImage(imgEl, keywords, seed, backupCat){
+function loadDishImage(imgEl, keywords, seed, backupCat, localFile){
   const box = imgEl.closest('.dish-img-box') || imgEl.closest('.hero-banner');
 
   const showFallbackEmoji = () => {
@@ -559,12 +559,26 @@ function loadDishImage(imgEl, keywords, seed, backupCat){
     }
   };
 
-  imgEl.onload = () => {
-    imgEl.classList.add('loaded');
-    if (box) box.classList.remove('img-loading');
+  const tryOnlineKeywordImage = () => {
+    imgEl.onload = () => {
+      imgEl.classList.add('loaded');
+      if (box) box.classList.remove('img-loading');
+    };
+    imgEl.onerror = () => { tryBackupApi(); };
+    imgEl.src = dishImageUrl(keywords, seed);
   };
-  imgEl.onerror = () => { tryBackupApi(); };
-  imgEl.src = dishImageUrl(keywords, seed);
+
+  if (localFile){
+    // Try the user's own local image first (same folder as index.html).
+    imgEl.onload = () => {
+      imgEl.classList.add('loaded');
+      if (box) box.classList.remove('img-loading');
+    };
+    imgEl.onerror = () => { tryOnlineKeywordImage(); };
+    imgEl.src = localFile;
+  } else {
+    tryOnlineKeywordImage();
+  }
 }
 
 /* ---------------- State ---------------- */
@@ -605,7 +619,7 @@ function renderMenu(){
   MENU.forEach(section => {
     section.items.forEach(dish => {
       const imgEl = document.getElementById(`img-${dish.id}`);
-      if (imgEl) loadDishImage(imgEl, dish.img, hashSeed(dish.id), dish.backupCat);
+      if (imgEl) loadDishImage(imgEl, dish.img, hashSeed(dish.id), dish.backupCat, dish.local);
     });
   });
 }
