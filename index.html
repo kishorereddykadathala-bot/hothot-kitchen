@@ -178,8 +178,14 @@
   .dish-img-box img.loaded{opacity:1;}
   .dish:hover .dish-img-box img{transform:scale(1.06);}
   .dish-img-box .fallback{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    font-size:36px;background:linear-gradient(135deg,#332c24,#211d19);
+    position:absolute;inset:0;
+    background-image:url('https://images.unsplash.com/photo-1753727471014-efe38840c7c7?fm=jpg&q=70&w=800&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+  }
+  .dish-img-box .fallback::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(28,26,23,0.55), rgba(28,26,23,0.15));
   }
   .dish-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1;}
   .dish-top{display:flex;justify-content:space-between;gap:10px;}
@@ -482,23 +488,23 @@
 /* ---------------- Menu data ---------------- */
 const MENU = [
   { cat: "From the wood oven", items: [
-    { id:"m1", name:"Char-Bark Margherita", desc:"San Marzano, fior di latte, torn basil, oak smoke.", price:420, tag:"Veg", img:"margherita pizza", icon:"🍕" },
-    { id:"m2", name:"Ember Ash Pizza", desc:"Charred leeks, taleggio, black garlic ash.", price:480, tag:"Veg", img:"gourmet pizza", icon:"🍕" },
-    { id:"m3", name:"Nduja & Honey", desc:"Spicy calabrian sausage, whipped ricotta, hot honey.", price:540, tag:"Spicy", spicy:true, img:"spicy pizza", icon:"🍕" },
+    { id:"m1", name:"Char-Bark Margherita", desc:"San Marzano, fior di latte, torn basil, oak smoke.", price:420, tag:"Veg", img:"margherita pizza", backupCat:"pizza", icon:"🍕" },
+    { id:"m2", name:"Ember Ash Pizza", desc:"Charred leeks, taleggio, black garlic ash.", price:480, tag:"Veg", img:"gourmet pizza", backupCat:"pizza", icon:"🍕" },
+    { id:"m3", name:"Nduja & Honey", desc:"Spicy calabrian sausage, whipped ricotta, hot honey.", price:540, tag:"Spicy", spicy:true, img:"spicy pizza", backupCat:"pizza", icon:"🍕" },
   ]},
   { cat: "Off the grill", items: [
-    { id:"g1", name:"Charcoal Chicken Thigh", desc:"Brined 24h, chili-lime glaze, pickled shallot.", price:460, tag:"Spicy", spicy:true, img:"grilled chicken", icon:"🍗" },
-    { id:"g2", name:"Smoked Paneer Tikka", desc:"Char-grilled over oak, mint-coriander chutney.", price:380, tag:"Veg", img:"paneer tikka", icon:"🧆" },
-    { id:"g3", name:"Whole Charred Fish", desc:"Catch of the day, curry leaf oil, lime.", price:620, tag:"", img:"grilled fish", icon:"🐟" },
+    { id:"g1", name:"Charcoal Chicken Thigh", desc:"Brined 24h, chili-lime glaze, pickled shallot.", price:460, tag:"Spicy", spicy:true, img:"grilled chicken", backupCat:"butter-chicken", icon:"🍗" },
+    { id:"g2", name:"Smoked Paneer Tikka", desc:"Char-grilled over oak, mint-coriander chutney.", price:380, tag:"Veg", img:"paneer tikka", backupCat:"dosa", icon:"🧆" },
+    { id:"g3", name:"Whole Charred Fish", desc:"Catch of the day, curry leaf oil, lime.", price:620, tag:"", img:"grilled fish", backupCat:"rice", icon:"🐟" },
   ]},
   { cat: "Sides & starters", items: [
-    { id:"s1", name:"Live-Fire Flatbread", desc:"Blistered naan, garlic-ghee brush.", price:140, tag:"Veg", img:"naan bread", icon:"🫓" },
-    { id:"s2", name:"Roasted Bone Marrow", desc:"Toast points, parsley-caper gremolata.", price:390, tag:"", img:"roasted dish", icon:"🍖" },
-    { id:"s3", name:"Ash-Roasted Beets", desc:"Whipped goat cheese, hazelnut, sherry.", price:260, tag:"Veg", img:"beet salad", icon:"🥗" },
+    { id:"s1", name:"Live-Fire Flatbread", desc:"Blistered naan, garlic-ghee brush.", price:140, tag:"Veg", img:"naan bread", backupCat:"dosa", icon:"🫓" },
+    { id:"s2", name:"Roasted Bone Marrow", desc:"Toast points, parsley-caper gremolata.", price:390, tag:"", img:"roasted dish", backupCat:"biryani", icon:"🍖" },
+    { id:"s3", name:"Ash-Roasted Beets", desc:"Whipped goat cheese, hazelnut, sherry.", price:260, tag:"Veg", img:"beet salad", backupCat:"rice", icon:"🥗" },
   ]},
   { cat: "To finish", items: [
-    { id:"d1", name:"Smoked Chocolate Tart", desc:"Torched meringue, sea salt.", price:280, tag:"Veg", img:"chocolate tart", icon:"🍫" },
-    { id:"d2", name:"Grilled Pineapple", desc:"Charred rum caramel, coconut sorbet.", price:240, tag:"Veg", img:"grilled pineapple dessert", icon:"🍍" },
+    { id:"d1", name:"Smoked Chocolate Tart", desc:"Torched meringue, sea salt.", price:280, tag:"Veg", img:"chocolate tart", backupCat:"dessert", icon:"🍫" },
+    { id:"d2", name:"Grilled Pineapple", desc:"Charred rum caramel, coconut sorbet.", price:240, tag:"Veg", img:"grilled pineapple dessert", backupCat:"dessert", icon:"🍍" },
   ]},
 ];
 
@@ -519,26 +525,46 @@ function hashSeed(str){
   return h % 5000;
 }
 
-function loadDishImage(imgEl, keywords, seed){
-  const url = dishImageUrl(keywords, seed);
+function loadDishImage(imgEl, keywords, seed, backupCat){
   const box = imgEl.closest('.dish-img-box') || imgEl.closest('.hero-banner');
-  imgEl.onload = () => {
-    imgEl.classList.add('loaded');
-    if (box) box.classList.remove('img-loading');
-  };
-  imgEl.onerror = () => {
-    imgEl.remove();
+
+  const showFallbackEmoji = () => {
     if (box){
       box.classList.remove('img-loading');
       if (!box.querySelector('.fallback')){
         const fb = document.createElement('div');
         fb.className = 'fallback';
-        fb.textContent = imgEl.dataset.icon || '🍽️';
         box.appendChild(fb);
       }
     }
   };
-  imgEl.src = url;
+
+  const tryBackupApi = async () => {
+    if (!backupCat){ showFallbackEmoji(); return; }
+    try {
+      const res = await fetch(`https://foodish-api.com/api/images/${encodeURIComponent(backupCat)}`);
+      const data = await res.json();
+      const url = data && (data.image || (Array.isArray(data) && data[0]));
+      if (!url) { showFallbackEmoji(); return; }
+      const backupImg = new Image();
+      backupImg.onload = () => {
+        imgEl.src = url;
+        imgEl.classList.add('loaded');
+        if (box) box.classList.remove('img-loading');
+      };
+      backupImg.onerror = showFallbackEmoji;
+      backupImg.src = url;
+    } catch (e) {
+      showFallbackEmoji();
+    }
+  };
+
+  imgEl.onload = () => {
+    imgEl.classList.add('loaded');
+    if (box) box.classList.remove('img-loading');
+  };
+  imgEl.onerror = () => { tryBackupApi(); };
+  imgEl.src = dishImageUrl(keywords, seed);
 }
 
 /* ---------------- State ---------------- */
@@ -579,14 +605,14 @@ function renderMenu(){
   MENU.forEach(section => {
     section.items.forEach(dish => {
       const imgEl = document.getElementById(`img-${dish.id}`);
-      if (imgEl) loadDishImage(imgEl, dish.img, hashSeed(dish.id));
+      if (imgEl) loadDishImage(imgEl, dish.img, hashSeed(dish.id), dish.backupCat);
     });
   });
 }
 
 function loadHeroImage(){
   const heroImg = document.getElementById('hero-img');
-  loadDishImage(heroImg, "wood fired oven flames restaurant kitchen", hashSeed("hero-hothot"));
+  loadDishImage(heroImg, "wood fired oven flames restaurant kitchen", hashSeed("hero-hothot"), "biryani");
 }
 
 function findDish(id){
