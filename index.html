@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOTPOT — Order</title>
+<title>Hotpot — Order</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --charcoal:#2E1420;
-    --charcoal-2:#391A28;
-    --card:#422030;
-    --chalk:#FAF0F4;
-    --chalk-dim:#D9A9BF;
+    --charcoal:#1C1A17;
+    --charcoal-2:#252220;
+    --card:#2A2622;
+    --chalk:#F5EFE6;
+    --chalk-dim:#B8AFA2;
     --ember:#E8562F;
     --ember-dim:#7a3320;
     --mustard:#C9A227;
-    --line:#5C2B44;
+    --line:#403A33;
     --green:#5B8C5A;
   }
   *{box-sizing:border-box;}
@@ -364,7 +364,7 @@
 
 <header>
   <div class="brand">
-    <h1>HOTPOT</h1>
+    <h1>Hotpot</h1>
     <span>Wood-fired kitchen</span>
   </div>
   <nav>
@@ -628,7 +628,7 @@ function renderMenu(){
 
 function loadHeroImage(){
   const heroImg = document.getElementById('hero-img');
-  loadDishImage(heroImg, "wood fired oven flames restaurant kitchen", hashSeed("hero-HOTPOT"), "biryani", "mainjpg.jpg");
+  loadDishImage(heroImg, "wood fired oven flames restaurant kitchen", hashSeed("hero-hotpot"), "biryani", "mainjpg.jpg");
 }
 
 function findDish(id){
